@@ -4,14 +4,14 @@ services:
 
   postgres:
     image: postgres:14.6-alpine
-    volumes:
-      - postgres_data_todolist:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: "todolist_admin"
+      POSTGRES_PASSWORD: "todolist_password"
+      POSTGRES_DB: "todolist_db"
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data_todolist:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U ${DB_USER} -d ${DB_NAME}
       interval: 3s
