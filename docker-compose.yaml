@@ -1,9 +1,8 @@
 version: "3.9"
 
 services:
-
-  postgres:
-    image: postgres:14.6-alpine
+  db:
+    image: postgres:15.1-alpine
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -11,13 +10,27 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_todolist:/var/lib/postgresql/data
+      - todolist_pg_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U ${DB_USER} -d ${DB_NAME}
       interval: 3s
-      timeout: 3s
+      timeout: 10s
       retries: 5
 
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./todolist:/opt/todolist/
+
+
 volumes:
-  postgres_data_todolist:
+   todolist_pg_data:
 

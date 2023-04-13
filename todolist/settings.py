@@ -13,26 +13,28 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import environ
 import os
+from envparse import env
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+#env = environ.Env(
+#    DEBUG=(bool, False)
+#)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
+#environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+ENV_PATH = BASE_DIR.joinpath('.env')
+if ENV_PATH.is_file():
+    env.read_envfile(ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('DJANGO_SECRET')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
 
 # Application definition
@@ -87,8 +89,8 @@ DATABASES = {
         'NAME': env.str('DB_NAME'),
         'USER': env.str('DB_USER'),
         'PASSWORD': env.str('DB_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': env('DB_PORT'),
+        'HOST': env.str('DB_HOST', default='127.0.0.1'),
+        'PORT': env.int('DB_PORT', default=5432),
     }
 }
 
