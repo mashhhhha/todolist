@@ -9,35 +9,19 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
-import environ
-import os
 from envparse import env
 
-#env = environ.Env(
-#    DEBUG=(bool, False)
-#)
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-#environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 ENV_PATH = BASE_DIR.joinpath('.env')
 if ENV_PATH.is_file():
     env.read_envfile(ENV_PATH)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
