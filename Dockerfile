@@ -27,7 +27,10 @@ EXPOSE 8000
 CMD ["gunicorn", "todolist.wsgi", "-w", "4", "-b", "0.0.0.0:8000"]
 
 
-
+#папка env 
+#DB_NAME=todolist_db
+#DB_USER=todolist_admin
+#DB_PASSWORD=todolist_password
 
 
 
