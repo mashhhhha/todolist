@@ -1,6 +1,6 @@
 FROM python:3.10.7-slim
 
-ENV POETRY_VERSION=1.4.1
+ENV POETRY_VERSION=1.4.2
 RUN pip install "poetry==$POETRY_VERSION"
 WORKDIR /opt
 COPY poetry.lock pyproject.toml ./

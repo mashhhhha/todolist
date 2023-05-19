@@ -4,16 +4,17 @@ version = "0.1.0"
 description = ""
 authors = ["mashhhhha <110398842+mashhhhha@users.noreply.github.com>"]
 readme = "README.md"
+packages = [{include = "todolist"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
-django = "^4.1.7"
-django-environ = "^0.10.0"
-gunicorn = "^20.1.0"
+django = "^4.2.1"
+envparse = "^0.2.0"
 psycopg2-binary = "^2.9.6"
+gunicorn = "^20.1.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
