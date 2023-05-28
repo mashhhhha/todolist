@@ -35,7 +35,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      collect_static:
+      api:
         condition: service_completed_successfully
     volumes:
       - django_static:/usr/share/nginx/html/static/
