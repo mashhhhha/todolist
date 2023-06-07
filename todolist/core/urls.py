@@ -1,6 +1,6 @@
 from django.urls import path
 
-from core.views import SignUpView, LoginView, ProfileView, UpdatePasswordView
+from todolist.core.views import SignUpView, LoginView, ProfileView, UpdatePasswordView
 
 urlpatterns = [
     path('signup', SignUpView.as_view(), name='signup'),
