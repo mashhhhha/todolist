@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from core.models import User
+from todolist.core.models import User
 from todolist.fields import PasswordField
 
 
