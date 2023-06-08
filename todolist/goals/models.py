@@ -52,5 +52,11 @@ class Goal(BaseModel):
     def __str__(self):
         return self.title
 
+class GoalComment(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+    text = models.TextField()
 
+    def __str__(self):
+        return self.text
 
