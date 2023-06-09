@@ -87,11 +87,8 @@ class GoalCommentListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentWithUser
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-<<<<<<< HEAD
     filterset_fields = ['goal']
-=======
     filterset_class = ['goal']
->>>>>>> 6505da091084469d244294b50450018d13255642
     ordering = ['-created']
 
     def get_queryset(self):
