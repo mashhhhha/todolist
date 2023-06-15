@@ -15,6 +15,9 @@ class Board(BaseModel):
     title = models.CharField(verbose_name="Название", max_length=255)
     is_deleted = models.BooleanField(verbose_name="Удалена", default=False)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = "Доска"
         verbose_name_plural = "Доски"
