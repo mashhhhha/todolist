@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'social_django',
     'todolist.core',
     'todolist.goals',
+    'todolist.bot',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,5 @@ AUTHENTICATION_BACKENDS = (
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
 }
+
+BOT_TOKEN = env.str('BOT_TOKEN')
