@@ -11,10 +11,14 @@ class TgClient:
     def __init__(self, token: str | None = None) -> None:
         self.__token = token if token else settings.BOT_TOKEN
         self.__base_url = f'https://api.telegram.org/bot{self.__token}/'
+        print()
 
     def get_updates(self, offset: int = 0, timeout: int = 60) -> GetUpdatesResponse:
         data = self._get('getUpdates', offset=offset, timeout=timeout)
-        return GetUpdatesResponse(**data)
+        try:
+            return GetUpdatesResponse(**data)
+        except ValidationError:
+            return GetUpdatesResponse(ok=False, result=[])
 
     def send_message(self, chat_id: int, text: str) -> SendMessageResponse:
         data = self._get('sendMessage', chat_id=chat_id, text=text)
@@ -25,6 +29,7 @@ class TgClient:
 
     def _get(self, command: str, **params: Any) -> dict:
         url = self.__get_url(command)
+        params['timeout'] = 10
         response = requests.get(url, params=params)
         if not response.ok:
             print(f'Invalid status code from telegram {response.status_code} on command {command}')

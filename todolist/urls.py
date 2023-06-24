@@ -5,6 +5,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('core/', include(('todolist.core.urls', 'todolist.core'))),
+    path('bot/', include(('todolist.bot.urls', 'todolist.bot'))),
     path('goals/', include(('todolist.goals.urls', 'todolist.goals'))),
     path('oauth/', include('social_django.urls', namespace='social'))
 ]

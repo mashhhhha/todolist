@@ -12,10 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from envparse import env
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_PATH = BASE_DIR.joinpath('.env')
 if ENV_PATH.is_file():
     env.read_envfile(ENV_PATH)
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 SECRET_KEY = env.str('SECRET_KEY')
 
@@ -23,16 +28,21 @@ DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
+# Application definition
+
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party apps
     'rest_framework',
     'django_filters',
     'social_django',
+    # First-party apps
     'todolist.core',
     'todolist.goals',
     'todolist.bot',
@@ -68,7 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todolist.wsgi.application'
 
-AUTH_USER_MODEL = 'core.User'
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -83,7 +93,7 @@ DATABASES = {
     }
 }
 
-
+AUTH_USER_MODEL = 'core.User'
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

@@ -4,6 +4,8 @@
 #expect
 !todolist/**
 !todolist/core/**
+!todolist/bot
+!todolist/goals
 !entrypoint.sh
 !manage.py
 !poetry.lock

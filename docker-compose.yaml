@@ -33,6 +33,16 @@ services:
       - ./todolist:/opt/todolist/
       - ./core:/opt/core/
 
+  bot:
+    build: .
+    env_file: .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    command: python manage.py runbot
+
   collect_static:
     build: .
     env_file: .env
@@ -42,7 +52,7 @@ services:
     command: python manage.py collectstatic -c --no-input
 
   frontend:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     ports:
       - "80:80"
     depends_on:

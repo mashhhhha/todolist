@@ -22,7 +22,25 @@ requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 ansible-vault-win = "^1.0.0"
+django-extensions = "^3.2.1"
+pre-commit = "^3.2.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+skip-string-normalization = true
+skip-magic-trailing-coma = true
+exclude = '''
+(
+  /(
+      \.git
+    | \.github
+    | \.venv
+    | deploy
+  )/
+)
+'''

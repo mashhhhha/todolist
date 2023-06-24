@@ -9,3 +9,9 @@ class TgUserAdmin(admin.ModelAdmin):
     readonly_fields = ['verification_code']
     search_fields = ['chat_id']
 
+    @staticmethod
+    def db_user(obj: TgUser) -> str | None:
+        if obj.user:
+            return obj.user.username
+        else:
+            return None
