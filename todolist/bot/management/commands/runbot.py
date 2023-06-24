@@ -22,7 +22,10 @@ class Command(BaseCommand):
                 self.handle_message(item.message)
 
     def handle_message(self, msg: Message):
+        self.stdout.write(self.style.SUCCESS('hel'))
         tg_user, _ = TgUser.objects.get_or_create(chat_id=msg.chat.id)
+
+
 
         if tg_user.is_verified:
             self.handle_authorized_user(tg_user, msg)
