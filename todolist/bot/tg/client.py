@@ -4,7 +4,7 @@ import requests
 from pydantic import ValidationError
 
 from todolist import settings
-from todolist.bot.tg.schema import GetUpdateResponse, SendMessageResponse
+from todolist.bot.tg.schema import GetUpdatesResponse, SendMessageResponse
 
 
 class TgClient:
@@ -12,9 +12,9 @@ class TgClient:
         self.__token = token if token else settings.BOT_TOKEN
         self.__base_url = f'https://api.telegram.org/bot{self.__token}/'
 
-    def get_updates(self, offset: int = 0, timeout: int = 60) -> GetUpdateResponse:
+    def get_updates(self, offset: int = 0, timeout: int = 60) -> GetUpdatesResponse:
         data = self._get('getUpdates', offset=offset, timeout=timeout)
-        return GetUpdateResponse(**data)
+        return GetUpdatesResponse(**data)
 
     def send_message(self, chat_id: int, text: str) -> SendMessageResponse:
         data = self._get('sendMessage', chat_id=chat_id, text=text)
@@ -27,7 +27,7 @@ class TgClient:
         url = self.__get_url(command)
         response = requests.get(url, params=params)
         if not response.ok:
-            print(f'Invalid status code from telegram {response.status_code}, on command {command}')
+            print(f'Invalid status code from telegram {response.status_code} on command {command}')
             return {'ok': False, 'result': []}
         return response.json()
 

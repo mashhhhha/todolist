@@ -24,16 +24,16 @@ class Command(BaseCommand):
     def handle_message(self, msg: Message):
         tg_user, _ = TgUser.objects.get_or_create(chat_id=msg.chat.id)
 
-        if tg_user.user:
+        if tg_user.is_verified:
             self.handle_authorized_user(tg_user, msg)
         else:
             self.handle_unauthorized_user(tg_user, msg)
 
     def handle_authorized_user(self, tg_user: TgUser, msg: Message):
-        self.tg_client.send_message(tg_user.chat.id, 'Authorized')
+        self.tg_client.send_message(tg_user.chat_id, 'Authorized')
 
     def handle_unauthorized_user(self, tg_user: TgUser, msg: Message):
-        chat_id = tg_user.chat_id
+        self.tg_client.send_message(tg_user.chat_id, 'Hello')
 
-        self.tg_client.send_message(chat_id, 'Hello')
-
+        tg_user.update_verification_code()
+        self.tg_client.send_message(tg_user.chat_id, f'Your verification code: {tg_user.verification_code}')

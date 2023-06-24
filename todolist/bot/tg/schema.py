@@ -20,6 +20,6 @@ class SendMessageResponse(BaseModel):
     result: Message
 
 
-class GetUpdateResponse(BaseModel):
+class GetUpdatesResponse(BaseModel):
     ok: bool
     result: list[UpdateObj]
