@@ -9,18 +9,6 @@ from todolist.bot.serializers import TgUserSerializer
 from todolist.bot.tg.client import TgClient
 
 
-# class VerificationView(generics.GenericAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = TgUserSerializer
-#
-#     def patch(self, request: Request, *args, **kwargs) -> Response:
-#         serializer = TgUserSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         tg_user: TgUser = serializer.save(user=request.user)
-#
-#         TgClient().send_message(tg_user.chat_id, 'Bot token verified')
-#
-#         return Response(serializer.data)
 class VerificationCodeView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = TgUserSerializer
