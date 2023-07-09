@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 # Register your models here.
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    """This class provides configuration for the user section of the admin panel"""
+
     list_display = ('username', 'email', 'first_name', 'last_name')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     list_filter = ('is_staff', 'is_active', 'is_superuser')

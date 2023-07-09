@@ -5,6 +5,8 @@ from todolist.bot.models import TgUser
 
 
 class TgUserSerializer(serializers.ModelSerializer):
+    """This serializer used to serialize and deserialize TgUser model"""
+
     tg_id = serializers.IntegerField(source='chat_id', read_only=True)
     username = serializers.CharField(source='user.username', read_only=True)
     user_id = serializers.IntegerField(source='user.id', read_only=True)

@@ -13,6 +13,8 @@ from rest_framework.serializers import Serializer
 
 
 class SignUpView(GenericAPIView):
+    """This view serves to register a new user"""
+
     serializer_class = CreateUserSerializer
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -25,6 +27,8 @@ class SignUpView(GenericAPIView):
 
 
 class LoginView(GenericAPIView):
+    """This view serves to realize a login process for an existing user"""
+
     serializer_class = LoginSerializer
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -44,11 +48,13 @@ class LoginView(GenericAPIView):
 
 
 class ProfileView(RetrieveUpdateDestroyAPIView):
+    """This view serves to get and update user data and logout from session"""
+
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
 
 
-    def get_object(self):
+    def get_object(self) -> Request:
         return self.request.user
 
     def delete(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -57,6 +63,8 @@ class ProfileView(RetrieveUpdateDestroyAPIView):
 
 
 class UpdatePasswordView(GenericAPIView):
+    """This view allows to update user's password"""
+
     serializer_class = UpdatePasswordSerializer
     permission_classes = [IsAuthenticated]
 
@@ -73,6 +81,3 @@ class UpdatePasswordView(GenericAPIView):
         user.save(update_fields=['password'])
 
         return Response(serializer.data)
-
-
-

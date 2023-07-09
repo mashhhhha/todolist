@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from todolist.goals.models import GoalCategory, Goal, GoalComment, Board, BoardParticipant
 
 
@@ -21,6 +22,7 @@ class BoardAdmin(admin.ModelAdmin):
     def participants_count(self, obj: Board) -> int:
         return obj.participants.exclude(role=BoardParticipant.Role.owner).count()
 
+
 @admin.register(GoalCategory)
 class GoalCategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'user', 'created', 'updated')
@@ -41,6 +43,3 @@ class GoalAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
     list_filter = ('status', 'priority')
     inlines = [CommentsInLine]
-
-
-

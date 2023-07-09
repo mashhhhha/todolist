@@ -18,29 +18,42 @@ social-auth-app-django = "^5.2.0"
 django-filter = "^23.2"
 pydantic = "^1.10.9"
 requests = "^2.31.0"
+pytest-factoryboy = "^2.5.1"
 
 
 [tool.poetry.group.dev.dependencies]
 ansible-vault-win = "^1.0.0"
 django-extensions = "^3.2.1"
 pre-commit = "^3.2.2"
+mypy = "^1.3.0"
+pytest-django = "^4.5.2"
+pytest-factoryboy = "^2.5.1"
+pytest = "^7.3.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-#[tool.black]
-#line-length = 120
-#target-version = ['py310']
-#skip-string-normalization = true
-#skip-magic-trailing-coma = true
-#exclude = '''
-#(
-#  /(
-#      \.git
-#    | \.github
-#    | \.venv
-#    | deploy
-#  )/
-#)
-#'''
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = 'todolist.settings'
+python_files = [
+    'tests.py',
+    'test_*.py',
+    '*_tests.py'
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+skip-string-normalization = true
+skip-magic-trailing-coma = true
+exclude = '''
+(
+  /(
+      \.git
+    | \.github
+    | \.venv
+    | deploy
+  )/
+)
+'''

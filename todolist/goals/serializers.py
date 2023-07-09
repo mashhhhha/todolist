@@ -83,7 +83,6 @@ class GoalCategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class GoalCreateSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -97,9 +96,9 @@ class GoalCreateSerializer(serializers.ModelSerializer):
             raise ValidationError('Category not found')
 
         if not BoardParticipant.objects.filter(
-            board_id=value.board_id,
-            role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
-            user_id=self.context['request'].user
+                board_id=value.board_id,
+                role__in=[BoardParticipant.Role.owner, BoardParticipant.Role.writer],
+                user_id=self.context['request'].user
         ).exists():
             raise PermissionDenied
         return value

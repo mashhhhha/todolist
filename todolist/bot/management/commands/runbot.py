@@ -96,3 +96,4 @@ class Command(BaseCommand):
         tg_user.save()
 
         self.tg_client.send_message(chat_id=msg.chat.id, text=f'Hello! Verification code: {code}')
+

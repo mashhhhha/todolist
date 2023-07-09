@@ -2,21 +2,25 @@ from django.db import transaction
 from django.db.models import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 from todolist.goals.filters import GoalDateFilter
 from todolist.goals.models import GoalCategory, Goal, GoalComment, BoardParticipant, Board
 from todolist.goals.permissions import BoardPermission
 from todolist.goals.serializers import GoalCategoryCreateSerializer, GoalCategorySerializer, GoalCreateSerializer, \
     GoalSerializer, GoalCommentSerializer, GoalCommentWithUser, BoardSerializer, BoardWithParticipantsSerializer
-from rest_framework.filters import OrderingFilter, SearchFilter
 
 
 class GoalCategoryCreateView(generics.CreateAPIView):
+    """This view is used to create a category"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategoryCreateSerializer
 
 
 class GoalCategoryListView(generics.ListAPIView):
+    """The CategoryListView provides logic to display a list of categories"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategorySerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
@@ -32,6 +36,8 @@ class GoalCategoryListView(generics.ListAPIView):
 
 
 class GoalCategoryView(generics.RetrieveUpdateDestroyAPIView):
+    """This view is used to show, update and delete a single category"""
+
     serializer_class = GoalCategorySerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = GoalCategory.objects.exclude(is_deleted=True)
@@ -44,11 +50,15 @@ class GoalCategoryView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class GoalCreateView(generics.CreateAPIView):
+    """This view is used to create a goal"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCreateSerializer
 
 
 class GoalListView(generics.ListAPIView):
+    """The GoalListView provides logic to display a list of goals"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
@@ -64,6 +74,8 @@ class GoalListView(generics.ListAPIView):
 
 
 class GoalView(generics.RetrieveUpdateDestroyAPIView):
+    """This view is used to show, update and delete a single goal"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalSerializer
     queryset = Goal.objects.exclude(status=Goal.Status.archived)
@@ -79,6 +91,8 @@ class GoalCommentCreateView(generics.CreateAPIView):
 
 
 class GoalCommentListView(generics.ListAPIView):
+    """The CommentListView provides logic to display a list of comments"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentWithUser
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -90,6 +104,8 @@ class GoalCommentListView(generics.ListAPIView):
 
 
 class GoalCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """This view is used to show, update and delete a single comment"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCommentWithUser
 
@@ -97,7 +113,11 @@ class GoalCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
         return GoalComment.objects.select_related('user').filter(
             goal__category__board__participants__user=self.request.user
         )
+
+
 class BoardCreateView(generics.CreateAPIView):
+    """This view is used to create a new board"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = BoardSerializer
 
@@ -109,6 +129,8 @@ class BoardCreateView(generics.CreateAPIView):
 
 
 class BoardListView(generics.ListAPIView):
+    """The BoardListView provides logic to display a list of all available boards"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = BoardSerializer
     filter_backends = [OrderingFilter]
@@ -119,6 +141,8 @@ class BoardListView(generics.ListAPIView):
 
 
 class BoardDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """This view is used to show, update and delete a single board"""
+
     permission_classes = [BoardPermission]
     serializer_class = BoardWithParticipantsSerializer
 

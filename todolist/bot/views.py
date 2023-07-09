@@ -10,6 +10,8 @@ from todolist.bot.tg.client import TgClient
 
 
 class VerificationCodeView(generics.GenericAPIView):
+    """This view used to connect telegram user with application user"""
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = TgUserSerializer
 
