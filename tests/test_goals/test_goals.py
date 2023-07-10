@@ -10,7 +10,7 @@ from todolist.goals.models import BoardParticipant, Goal
 @pytest.mark.django_db()
 class TestCreateGoalView:
     queries_count: int = 5
-    url = reverse('create-goal')
+    url = reverse('goals:create-goal')
 
     def test_auth_required(self, client):
         response = client.post(self.url)
